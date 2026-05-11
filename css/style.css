@@ -550,38 +550,90 @@ h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
 .edu-school { font-size: 0.85rem; color: var(--teal); margin-bottom: 0.3rem; }
 .edu-detail { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
 
-/* ─── COMPETENCIES TABLE ─── */
-.competencies-table {
+/* ─── COMPETENCIES CARDS ─── */
+.comp-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.comp-card {
+  background: var(--white);
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  transition: all var(--transition);
   overflow: hidden;
 }
-.comp-row {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  border-bottom: 1px solid var(--gray-200);
-  transition: background var(--transition);
+.comp-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--teal-mid));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
-.comp-row:last-child { border-bottom: none; }
-.comp-row:hover { background: var(--gray-100); }
-.comp-label {
-  padding: 1rem 1.25rem;
-  font-size: 0.85rem;
+.comp-card:hover {
+  border-color: var(--teal);
+  box-shadow: 0 8px 32px rgba(0,201,167,0.1);
+  transform: translateY(-3px);
+}
+.comp-card:hover::before { transform: scaleX(1); }
+
+.comp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.comp-icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--teal-pale);
+  color: var(--teal-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition), color var(--transition);
+}
+.comp-card:hover .comp-icon-wrap {
+  background: var(--teal);
+  color: var(--white);
+}
+.comp-card h3 {
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--navy);
-  background: var(--gray-100);
-  border-right: 1px solid var(--gray-200);
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.01em;
+  margin: 0;
 }
-.comp-value {
-  padding: 1rem 1.5rem;
-  font-size: 0.9rem;
+.comp-card p {
+  font-size: 0.83rem;
   color: var(--text-muted);
   line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.comp-tags {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.comp-tags span {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.comp-card:hover .comp-tags span {
+  background: rgba(0,201,167,0.07);
+  border-color: rgba(0,201,167,0.25);
+  color: var(--teal-mid);
 }
 
 /* ─── SKILLS ─── */
@@ -894,6 +946,7 @@ h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
   .media-wide { grid-column: span 2; }
   .media-grid-4 { grid-template-columns: 1fr 1fr; }
   .media-grid-videos { grid-template-columns: 1fr; }
+  .comp-cards { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 680px) {
@@ -910,4 +963,5 @@ h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
   .hero-actions { flex-direction: column; align-items: flex-start; }
   .comp-row { grid-template-columns: 1fr; }
   .comp-label { border-right: none; border-bottom: 1px solid var(--gray-200); }
+  .comp-cards { grid-template-columns: 1fr; }
 }
